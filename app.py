@@ -1,6 +1,7 @@
 import numpy as np
 from flask import Flask, request, jsonify, render_template
 import pickle
+import os
 
 application = Flask(__name__) #Initialize the flask App
 model = pickle.load(open('model.pkl', 'rb'))
@@ -23,4 +24,4 @@ def predict():
     return render_template('index.html', prediction_text='Employee Salary should be rs {}'.format(output))
 
 if __name__ == "__main__":
-    application.run(debug=True,host="0.0.0.0",port=8000)
+    application.run(debug=True,host="0.0.0.0",port=int(os.getenv("PORT",5000)))
